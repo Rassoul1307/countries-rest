@@ -1,4 +1,3 @@
-let allCountriesData = []; // Variable globale pour stocker les données de tous les pays
 // Sélectionnez l'élément avec la classe '.mode-sombre' pour ajouter l'écouteur d'événement
 const modeSombreToggle = document.querySelector('.mode-sombre');
 
@@ -32,6 +31,7 @@ modeSombreToggle.addEventListener('click', () => {
     const isDarkModeEnabled = document.body.classList.contains("dark");
     localStorage.setItem('darkMode', isDarkModeEnabled.toString());
 });
+let allCountriesData = []; // Variable globale pour stocker les données de tous les pays
 function afficherTousLesPays() {
     fetch('https://restcountries.com/v3.1/all')
     .then(response => response.json())
@@ -83,11 +83,13 @@ function paysParContinent() {
     function updateDisplayedCountries() {
         const selectedContinent = selectContinent.value.toLowerCase();
         const searchTerm = countrySearch.value.trim().toLowerCase();
+        // console.log(allCountriesData);
 
         const filteredCountries = allCountriesData.filter(pays => {
             return (selectedContinent === 'all' || pays.region.toLowerCase() === selectedContinent) && 
                 pays.name.common.toLowerCase().includes(searchTerm);
         });
+        console.log(filteredCountries);
         afficherPays(filteredCountries);
     }
 }
